@@ -27,6 +27,9 @@ const MNEMONIC = process.env.MNEMONIC
 // If you prefer to be authenticated using a private key, set a PRIVATE_KEY environment variable
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
+export const ETH_SAFE_ADDRESS = "0xDF2C270f610Dc35d8fFDA5B453E74db5471E126B";
+export const ARB_SAFE_ADDRESS = "0xA71A021EF66B03E45E0d85590432DFCfa1b7174C";
+
 const accounts: HttpNetworkAccountsUserConfig | undefined = MNEMONIC
     ? { mnemonic: MNEMONIC }
     : PRIVATE_KEY
@@ -65,6 +68,10 @@ const config: HardhatUserConfig = {
                     apiKey: process.env.MAINNET_ETHERSCAN_KEY || '',
                 },
             },
+            safeConfig: {
+                safeUrl: 'https://app.safe.global',
+                safeAddress: ETH_SAFE_ADDRESS
+            }
         },
         'arbitrum-mainnet': {
             eid: EndpointId.ARBITRUM_V2_MAINNET,
@@ -75,6 +82,10 @@ const config: HardhatUserConfig = {
                     apiKey: process.env.ARBITRUM_ETHERSCAN_KEY || '',
                 }
             },
+            safeConfig: {
+                safeUrl: 'https://app.safe.global',
+                safeAddress: ARB_SAFE_ADDRESS
+            }
         },
         hardhat: {
             // Need this for testing because TestHelperOz5.sol is exceeding the compiled contract size limit

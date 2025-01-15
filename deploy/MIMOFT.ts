@@ -1,23 +1,23 @@
-import { Contract, ethers } from 'ethers'
+import { Contract } from 'ethers'
 import { type DeployFunction } from 'hardhat-deploy/types'
 import { getDeploymentAddressAndAbi } from '@layerzerolabs/lz-evm-sdk-v2'
 
-const deploymentName = 'BoundSpellOFT'
-const salt = "bound-spell-oft-1734060796"
+const deploymentName = 'MIMOFT'
+const salt = "mim-oft-1734968493"
 
 const configurations = {
-    'arbitrum-mainnet': {
+    'ethereum-mainnet': {
         contractName: 'AbraOFTAdapterUpgradeable',
-        args: (endpointAddress: string) => ['0x19595E8364644F038bDda1d099820654900c3042', endpointAddress], // bSPELL ERC20 address
+        args: (endpointAddress: string) => ['0x99D8a9C45b2ecA8864373A26D1459e3Dff1e17F3', endpointAddress], // MIM address
         initializeArgs: (signer: string) => [signer],
         feeHandler: '0xE66BE95FE4E3889a66925d996AF3E4dC173754a2'
     },
-    'ethereum-mainnet': {
-        contractName: 'AbraOFTUpgradeable',
-        args: (endpointAddress: string) => [endpointAddress],
-        initializeArgs: (signer: string) => ['boundSPELL', 'bSPELL', signer],
-        feeHandler: '0xe4aec83Cba57E2B0b9ED8bc9801123F44f393037'
-    }
+    //'berachain': {
+    //    contractName: 'AbraOFTUpgradeable',
+    //    args: (endpointAddress: string) => [endpointAddress],
+    //    initializeArgs: (signer: string) => ['Magic Internet Money', 'MIM', signer],
+    //    //feeHandler: '0xe4aec83Cba57E2B0b9ED8bc9801123F44f393037'
+    //}
 }
 
 const deploy: DeployFunction = async (hre) => {
@@ -45,7 +45,7 @@ const deploy: DeployFunction = async (hre) => {
                     methodName: 'initialize',
                     args: config.initializeArgs(signer.address),
                 },
-            }
+            },
         },
         contract: config.contractName
     })
